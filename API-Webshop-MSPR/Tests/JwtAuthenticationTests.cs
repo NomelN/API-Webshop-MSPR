@@ -1,27 +1,26 @@
 ﻿using API_Webshop_MSPR.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Security.Claims;
-using Xunit;
 
 namespace API_Webshop_MSPR.Tests
 {
     [TestClass]
     public class JwtAuthenticationTests
     {
-        private JwtAuthenticationService _jwtAuthentificationService;
+        private JwtAuthenticationService _jwtAuthenticationService;
 
         [TestInitialize]
         public void Initialize()
         {
             // Arrange
-            _jwtAuthentificationService = new JwtAuthentificationService();
+            _jwtAuthenticationService = new JwtAuthenticationService();
         }
 
         [TestMethod]
         public void Authenticate_ValidCredentials_ReturnsUser()
         {
             // Act
-            Utilisateur user = _jwtAuthentificationService.Authenticate("admin@gmail.com", "Epsi2023");
+            User user = _jwtAuthenticationService.Authenticate("admin@gmail.com", "Epsi2023");
 
             // Assert
             Assert.IsNotNull(user);
@@ -32,7 +31,7 @@ namespace API_Webshop_MSPR.Tests
         public void Authenticate_InvalidCredentials_ReturnsNull()
         {
             // Act
-            Utilisateur user = _jwtAuthentificationService.Authenticate("invalid@gmail.com", "password");
+            User user = _jwtAuthenticationService.Authenticate("invalid@gmail.com", "password");
 
             // Assert
             Assert.IsNull(user);
@@ -50,7 +49,7 @@ namespace API_Webshop_MSPR.Tests
             };
 
             // Act
-            string token = _jwtAuthentificationService.GenerateToken(secret, claims);
+            string token = _jwtAuthenticationService.GenerateToken(secret, claims);
 
             // Assert
             Assert.IsNotNull(token);

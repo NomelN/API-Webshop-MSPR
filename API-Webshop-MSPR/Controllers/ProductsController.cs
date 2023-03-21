@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -9,17 +8,17 @@ namespace API_Webshop_MSPR.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        [HttpGet("{token}", Name = "GetProducts")]
+        [HttpGet(Name = "GetProducts")]
         [Authorize]
 
-        public async Task<ActionResult<Products>> GetProducts(int token)
+        public async Task<ActionResult<Products>> GetProducts()
         {
             var data = new List<dynamic>();
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var response = await httpClient.GetAsync($"https://615f5fb4f7254d0017068109.mockapi.io/api/v1/products/{token}");
+                    var response = await httpClient.GetAsync("https://615f5fb4f7254d0017068109.mockapi.io/api/v1/products");
                     response.EnsureSuccessStatusCode();
                     var jsonString = await response.Content.ReadAsStringAsync();
                     var products = JsonConvert.DeserializeObject<dynamic[]>(jsonString);
