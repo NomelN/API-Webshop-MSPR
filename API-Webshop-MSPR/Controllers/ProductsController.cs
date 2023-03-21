@@ -9,16 +9,17 @@ namespace API_Webshop_MSPR.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        [HttpGet(Name = "GetProducts")]
-        
-        public async Task<ActionResult<Products>> GetProducts()
+        [HttpGet("{token}", Name = "GetProducts")]
+        [Authorize]
+
+        public async Task<ActionResult<Products>> GetProducts(int token)
         {
             var data = new List<dynamic>();
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var response = await httpClient.GetAsync("https://615f5fb4f7254d0017068109.mockapi.io/api/v1/products");
+                    var response = await httpClient.GetAsync($"https://615f5fb4f7254d0017068109.mockapi.io/api/v1/products/{token}");
                     response.EnsureSuccessStatusCode();
                     var jsonString = await response.Content.ReadAsStringAsync();
                     var products = JsonConvert.DeserializeObject<dynamic[]>(jsonString);
@@ -46,7 +47,8 @@ namespace API_Webshop_MSPR.Controllers
         }
 
         [HttpGet("{idProduct}", Name = "Get Produit By Id")]
-        
+        [Authorize]
+
 
         public async Task<ActionResult<Products>> GetProduitById(int idProduct)
         {

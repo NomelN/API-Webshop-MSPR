@@ -10,7 +10,8 @@ namespace API_Webshop_MSPR.Controllers
     public class CustomersController : ControllerBase
     {
         [HttpGet(Name = "GetCustomers")]
-        
+        [Authorize]
+
         public async Task<ActionResult<Customers>> GetCustomers()
         {
             var data = new List<dynamic>();
@@ -51,6 +52,7 @@ namespace API_Webshop_MSPR.Controllers
         }
 
         [HttpGet("{idCustomers}", Name = "Get Customers By Id")]
+        [Authorize]
         public async Task<ActionResult<Customers>> GetCustomerById(int idCustomers)
         {
             try
@@ -87,7 +89,8 @@ namespace API_Webshop_MSPR.Controllers
         }
 
         [HttpGet("{idCustomer}/orders", Name = "Get Orders By Id")]
-        
+        [Authorize]
+
 
         public async Task<ActionResult<Order>> GetOrdersById(int idCustomer)
         {
@@ -121,7 +124,8 @@ namespace API_Webshop_MSPR.Controllers
             return Ok(JsonConvert.SerializeObject(data));
         }
         [HttpGet("{idCustomer}/orders/{idOrder}/products", Name = "Get Products With Orders")]
-        
+        [Authorize]
+
         public async Task<ActionResult<Order>> GetOrderProducts(int idCustomer, int idOrder)
         {
             var data = new List<dynamic>();
