@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --filter TestCategory=Build Tests\bin\Debug\net6.0\Tests.dll
+      run: dotnet test --no-build --verbosity normal
