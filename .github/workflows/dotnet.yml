@@ -1,23 +1,21 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: .NET
-
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
     branches: [ "master" ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    - name: Restore Packages
+      run: nuget restore API-Webshop-MSPR.sln
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
@@ -25,4 +23,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --filter TestCategory=Build Tests\bin\Debug\net6.0\Tests.dll
+      run: dotnet test --filter TestCategory=Build Test\bin\Debug\net6.0\Test.dll
