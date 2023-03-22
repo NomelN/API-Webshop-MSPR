@@ -20,8 +20,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Run application
-      run: dotnet run --project ./API-Webshop-MSPR.csproj --no-build
+    - name: Build
+      run: dotnet run --no-restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
