@@ -21,7 +21,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Run application
-      run: dotnet run /main:API_Webshop_MSPR.Program
+      run: dotnet run --project ./API-Webshop-MSPR.csproj --no-build
     - name: Build
       run: dotnet build --no-restore
     - name: Test
