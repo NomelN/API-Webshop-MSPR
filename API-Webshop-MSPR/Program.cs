@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Hosting;
+
 namespace API_Webshop_MSPR
 {
     public class Program
