@@ -1,0 +1,30 @@
+name: Build and Test ASP.NET Core Web API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.100
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+      working-directory: ./API-Webshop-MSPR/
+    - name: Test with dotnet
+      run: dotnet test --no-build --configuration Release --logger trx --results-directory ./TestResults/
+      working-directory: ./API-Webshop-MSPR/
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: TestResults
+        path: ./API-Webshop-MSPR/TestResults/
